@@ -1,0 +1,18 @@
+{
+  "name": "@probability/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Unaudited testnet-ready contracts for the Probability protocol",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deployFactory.js",
+    "deploy:market": "hardhat run scripts/deploy.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "chai": "^4.5.0",
+    "ethers": "^6.13.4",
+    "hardhat": "^2.22.17"
+  }
+}

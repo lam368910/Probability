@@ -35,6 +35,11 @@ class BinaryLMSR:
         self.q_yes = 0.0
         self.q_no = 0.0
         self.fees_collected = 0.0
+        # Gross collateral paid into the scoring rule, excluding fees.  Keeping
+        # this separate is important: volume and fees alone are not LP profit,
+        # because outstanding winning shares become a settlement liability.
+        self.gross_cash_collected = 0.0
+        self.trade_count = 0
 
     def _cost(self, q_yes: float, q_no: float) -> float:
         scaled_yes = q_yes / self.liquidity
@@ -86,6 +91,8 @@ class BinaryLMSR:
         else:
             self.q_no += shares
         self.fees_collected += quote.fee
+        self.gross_cash_collected += quote.gross_cost
+        self.trade_count += 1
         return quote
 
     @staticmethod
@@ -105,5 +112,6 @@ class BinaryLMSR:
             "yes_probability": prices["YES"],
             "no_probability": prices["NO"],
             "fees_collected": self.fees_collected,
+            "gross_cash_collected": self.gross_cash_collected,
+            "trade_count": self.trade_count,
         }
-

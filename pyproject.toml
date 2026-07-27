@@ -4,16 +4,24 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "probability-protocol"
-version = "0.1.0"
-description = "Minimal binary prediction-market AMM prototype"
+version = "0.2.0"
+description = "Prediction-market liquidity protocol and risk analytics"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
+
+[project.optional-dependencies]
+api = [
+  "fastapi>=0.140,<0.141",
+  "uvicorn[standard]>=0.51,<0.52",
+]
+dev = [
+  "httpx>=0.28,<0.29",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
-testpaths = ["tests"]
-
+testpaths = ["tests", "api/tests"]
