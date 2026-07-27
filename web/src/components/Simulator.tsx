@@ -1,19 +1,35 @@
 import { useMemo, useState } from 'react'
 import type { Market } from '../types/market'
 import { calculateLiquidityQuote, calculateTradeQuote, formatUsd } from '../lib/format'
+import { parseUsdcAmount } from '../lib/usdc'
 import { Icon } from './Icon'
+import type { ArcWallet } from '../hooks/useArcWallet'
 
-export function Simulator({ market }: { market: Market }) {
+export function Simulator({ market, wallet }: { market: Market; wallet: ArcWallet }) {
   const [mode, setMode] = useState<'liquidity' | 'trade'>('liquidity')
-  const [amount, setAmount] = useState(2500)
+  const [amount, setAmount] = useState('2500')
   const [days, setDays] = useState(30)
-  const lpQuote = useMemo(() => calculateLiquidityQuote(amount, market.feeApr ?? 0, days), [amount, market.feeApr, days])
-  const tradeQuote = useMemo(() => calculateTradeQuote(amount, market.probability, market.feeBps), [amount, market.probability, market.feeBps])
+  const amountNumber = Number(amount)
+  const safeAmount = Number.isFinite(amountNumber) && amountNumber >= 0 ? amountNumber : 0
+  const parsedAmount = useMemo(() => parseUsdcAmount(amount), [amount])
+  const lpQuote = useMemo(() => calculateLiquidityQuote(safeAmount, market.feeApr ?? 0, days), [safeAmount, market.feeApr, days])
+  const tradeQuote = useMemo(() => calculateTradeQuote(safeAmount, market.probability, market.feeBps), [safeAmount, market.probability, market.feeBps])
   const totalFeePercent = (market.feeBps / 100).toFixed(2)
   const feeSplit = market.protocolFeeShareBps === null
     ? 'SPLIT N/A'
     : `${((10_000 - market.protocolFeeShareBps) / 100).toFixed(0)}% LP / ${(market.protocolFeeShareBps / 100).toFixed(0)}% PROTOCOL`
-  const safeAmount = Number.isFinite(amount) ? Math.max(0, amount) : 0
+  const busy = wallet.status === 'pending' || wallet.status === 'connecting'
+  const actionReady = Boolean(parsedAmount) && wallet.deploymentReady && !busy
+  const connectedToArc = Boolean(wallet.account) && wallet.networkReady
+  const actionLabel = !wallet.deploymentReady
+    ? 'Arc deployment not configured'
+    : busy
+      ? wallet.status === 'pending' ? 'Waiting for Arc finality…' : 'Connecting wallet…'
+      : !wallet.account
+        ? 'Connect wallet to continue'
+        : !wallet.networkReady
+          ? 'Switch wallet to Arc'
+          : mode === 'liquidity' ? 'Add liquidity on Arc' : 'Buy YES on Arc'
 
   return (
     <section className="simulator-section" id="simulator">
@@ -36,7 +52,8 @@ export function Simulator({ market }: { market: Market }) {
         <div className="selected-market"><span>SELECTED MARKET</span><strong>{market.question}</strong><small>{market.probability}¢ YES · {market.feeApr === null ? 'fee APR unavailable' : `${market.feeApr}% est. fee APR`}</small></div>
         <label className="amount-input">
           <span>{mode === 'liquidity' ? 'AMOUNT TO SUPPLY' : 'AMOUNT TO TRADE'}</span>
-          <div><b>$</b><input value={amount} min="0" inputMode="decimal" aria-label="USDC amount" onChange={(event) => setAmount(Number(event.target.value))} /><em>USDC</em></div>
+          <div><b>$</b><input value={amount} inputMode="decimal" autoComplete="off" aria-label="USDC amount" aria-invalid={amount.length > 0 && !parsedAmount} onChange={(event) => setAmount(event.target.value)} /><em>USDC</em></div>
+          {amount.length > 0 && !parsedAmount ? <small className="amount-error">Use a positive amount with at most 6 decimal places.</small> : null}
         </label>
         {mode === 'liquidity' ? (
           <>
@@ -54,8 +71,22 @@ export function Simulator({ market }: { market: Market }) {
             <div className="net-quote"><span>EST. YES SHARES</span><strong>{tradeQuote.shares.toFixed(2)}</strong><small>$1 if resolved Yes</small></div>
           </div>
         )}
-        <button className="demo-submit" type="button" disabled={safeAmount <= 0}>{mode === 'liquidity' ? 'Preview LP position' : 'Preview demo trade'} <Icon name="arrow" /></button>
-        <p className="panel-disclaimer"><Icon name="shield" /> Simulation only. No wallet or blockchain transaction will be initiated.</p>
+        <div className="onchain-target" role="note">
+          <span>ONCHAIN ACTION TARGET</span>
+          <strong>{wallet.deploymentReady ? wallet.marketQuestion : 'No Arc market address configured'}</strong>
+          <small>The market cards and estimates above are demo analytics. The button below only acts on this named Arc Testnet contract.</small>
+        </div>
+        <button
+          className="demo-submit"
+          type="button"
+          disabled={!actionReady}
+          onClick={() => connectedToArc
+            ? void (mode === 'liquidity' ? wallet.provideLiquidity(amount) : wallet.buyYes(amount))
+            : void wallet.connect()}
+        >
+          {actionLabel} <Icon name="arrow" />
+        </button>
+        <p className="panel-disclaimer"><Icon name="shield" /> {wallet.deploymentReady ? 'Onchain actions use testnet USDC. Keep at least 0.01 USDC for Arc gas; testnet assets have no value.' : 'Simulation remains available while deployment is staged.'}</p>
       </div>
     </section>
   )

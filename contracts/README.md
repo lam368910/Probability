@@ -14,6 +14,17 @@
 
 `ProbabilityMarketFactory.sol` deploys and indexes multiple independent markets. Creation is owner-only by default; the factory owner can explicitly enable permissionless creation. Market owner and oracle are provided for every market and are not inherited from the factory. The factory is non-upgradeable. Its treasury and protocol share (capped at 50% of the trading fee) apply only to future markets; each deployed market stores those terms immutably.
 
+## Arc Testnet MVP
+
+The current public deployment uses:
+
+- factory: [`0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601`](https://testnet.arcscan.app/address/0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601)
+- market: [`0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42`](https://testnet.arcscan.app/address/0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42)
+- USDC ERC-20 interface: `0x3600000000000000000000000000000000000000`
+- deployment manifest: [`deployments/arc-testnet.json`](deployments/arc-testnet.json)
+
+The deployer/oracle/owner/treasury are intentionally one isolated testnet wallet for the hackathon demo. This is not a production control model.
+
 ## Run locally
 
 ```sh
@@ -21,7 +32,18 @@ npm install
 npm test
 ```
 
-For an intentional testnet deployment, configure a network in `hardhat.config.js`, set `FACTORY_OWNER`, and run `npm run deploy -- --network <network>`. Direct single-market deployment remains available through `npm run deploy:market -- --network <network>` using the remaining values in `.env.example`. The repository intentionally contains no RPC URL or private key. Deployment never seeds a market; initialization is a separate, explicit collateral approval and `initialize(seedAmount)` transaction.
+For the Arc workflow, generate a dedicated testnet-only wallet, fund it from Circle's faucet, then deploy, exercise, and verify:
+
+```sh
+npm run wallet:arc
+npm run deploy:arc
+npm run exercise:arc
+npm run smoke:arc
+```
+
+`wallet:arc` writes the private key only to ignored `.env.arc.local`; never commit or reuse it on mainnet. `deploy:arc` deploys a factory, creates one market, approves Arc USDC, and seeds the pool. `exercise:arc` performs a canonical 0.10-USDC YES purchase and a 0.10-USDC liquidity deposit once. `smoke:arc` independently verifies code, roles, registration, reserves, and collateral backing. If Circle's primary RPC rate-limits a command, set `ARC_TESTNET_RPC_URL=https://rpc.drpc.testnet.arc.io`, an alternate endpoint listed in the official Arc documentation.
+
+The generic `deploy` and `deploy:market` helpers remain available for other explicitly configured testnets.
 
 ## Lifecycle
 

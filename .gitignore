@@ -8,3 +8,4 @@ venv/
 .codex-auth/
 dist/
 build/
+.tmp/

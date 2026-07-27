@@ -7,11 +7,16 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy": "hardhat run scripts/deployFactory.js",
-    "deploy:market": "hardhat run scripts/deploy.js"
+    "deploy:market": "hardhat run scripts/deploy.js",
+    "wallet:arc": "node scripts/generateArcWallet.js",
+    "deploy:arc": "hardhat run scripts/deployArcMvp.js --network arcTestnet",
+    "smoke:arc": "hardhat run scripts/smokeArcMvp.js --network arcTestnet",
+    "exercise:arc": "hardhat run scripts/exerciseArcMvp.js --network arcTestnet"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.8",
     "chai": "^4.5.0",
+    "dotenv": "^17.4.2",
     "ethers": "^6.13.4",
     "hardhat": "^2.22.17"
   }

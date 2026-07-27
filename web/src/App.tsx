@@ -8,10 +8,13 @@ import { Mechanics, Safety } from './components/Mechanics'
 import { dataAdapter } from './data/mockAdapter'
 import type { Market, Portfolio, ProtocolStats } from './types/market'
 import { Icon } from './components/Icon'
+import { ArcMvpPanel } from './components/ArcMvpPanel'
+import { useArcWallet } from './hooks/useArcWallet'
 
 interface AppData { markets: Market[]; portfolio: Portfolio; stats: ProtocolStats }
 
 export default function App() {
+  const arcWallet = useArcWallet()
   const [data, setData] = useState<AppData | null>(null)
   const [selected, setSelected] = useState<Market | null>(null)
 
@@ -27,12 +30,13 @@ export default function App() {
 
   return (
     <>
-      <Header />
+      <Header wallet={arcWallet} />
       <main>
         <Hero stats={data.stats} />
+        <ArcMvpPanel wallet={arcWallet} />
         <div className="ticker" aria-label="Protocol highlights"><div><span>◈</span> FEE-FUNDED YIELD <i /> <span>◈</span> MARKET-NEUTRAL INTENT <i /> <span>◈</span> TRANSPARENT RISK <i /> <span>◈</span> CAPITAL EFFICIENCY <i /> <span>◈</span> FEE-FUNDED YIELD <i /></div></div>
         <Markets markets={data.markets} selected={selected} onSelect={setSelected} />
-        <Simulator market={selected} />
+        <Simulator market={selected} wallet={arcWallet} />
         <PortfolioView portfolio={data.portfolio} markets={data.markets} />
         <Mechanics />
         <Safety />

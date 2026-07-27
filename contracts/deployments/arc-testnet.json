@@ -1,0 +1,35 @@
+{
+  "network": "arcTestnet",
+  "chainId": 5042002,
+  "rpcUrl": "https://rpc.testnet.arc.io",
+  "explorerUrl": "https://testnet.arcscan.app",
+  "deployedAt": "2026-07-27T20:47:41.481Z",
+  "deployer": "0x825cc0475D85ac28F6Ba21E0587755B6B2059d84",
+  "factoryOwner": "0x825cc0475D85ac28F6Ba21E0587755B6B2059d84",
+  "pendingFactoryOwnershipAcceptance": false,
+  "marketOwner": "0x825cc0475D85ac28F6Ba21E0587755B6B2059d84",
+  "oracle": "0x825cc0475D85ac28F6Ba21E0587755B6B2059d84",
+  "protocolTreasury": "0x825cc0475D85ac28F6Ba21E0587755B6B2059d84",
+  "usdc": "0x3600000000000000000000000000000000000000",
+  "factory": "0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601",
+  "market": "0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42",
+  "question": "Will the Arc Programmable Money Hackathon reach Demo Day on August 20, 2026?",
+  "closeTime": 1787241600,
+  "feeBps": 30,
+  "protocolFeeShareBps": 2000,
+  "minimumReserve": "1000000",
+  "seedAmount": "5000000",
+  "transactions": {
+    "factoryDeployment": "0x27501f61c889a4f98e21208834457e9fdd4c7bf1483a100f6f8296cb2843a84c",
+    "marketCreation": "0x7f1685179ab220d7c54c45667aa2422b1feba090573b9bf4f9d38f887799bb4f",
+    "marketInitialization": "0x9cd2f1072da7a5c75b529c9718118352713dbe85278aaf5e5cf8ffce6218e3d2",
+    "factoryOwnershipTransfer": null,
+    "demoBuy": "0x72c9c287ff2bea33379f5c2d068da23b25eff9aeb49c372bafc011104bcc35be",
+    "demoLiquidity": "0x6a0eb79e63afd3556a8a3079242e479938319b1a2f186d569132131d592e2c7d"
+  },
+  "demoActor": "0x825cc0475D85ac28F6Ba21E0587755B6B2059d84",
+  "demoAmounts": {
+    "buyYes": "100000",
+    "addLiquidity": "100000"
+  }
+}

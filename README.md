@@ -1,14 +1,19 @@
 # Probability
 
-**Probability** is prediction-market liquidity infrastructure for traders and liquidity providers. It combines a public demo interface, AMM and LP smart-contract prototypes, a reproducible risk engine, and a read-only analytics API.
+**Probability** is prediction-market liquidity infrastructure for traders and liquidity providers. It combines a live Arc Testnet AMM, a wallet-connected public interface, a reproducible LP risk engine, and a read-only analytics API.
 
 **Public demo:** <https://lam368910.github.io/Probability/>
 
-> **Current status: public demo and testnet engineering release.** The contracts are unaudited. No component in this repository promises profit, protects principal, or is approved to custody real funds.
+**Judge assets:** [3-minute demo video](https://lam368910.github.io/Probability/Probability-Arc-Demo.mp4) · [pitch deck](https://lam368910.github.io/Probability/Probability-Arc-Pitch.pptx)
+
+**Arc Testnet:** [factory](https://testnet.arcscan.app/address/0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601) · [market](https://testnet.arcscan.app/address/0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42) · [YES trade](https://testnet.arcscan.app/tx/0x72c9c287ff2bea33379f5c2d068da23b25eff9aeb49c372bafc011104bcc35be) · [liquidity deposit](https://testnet.arcscan.app/tx/0x6a0eb79e63afd3556a8a3079242e479938319b1a2f186d569132131d592e2c7d)
+
+> **Current status: working, unaudited Arc Testnet MVP.** Testnet USDC has no value. No component in this repository promises profit, protects principal, or is approved to custody real funds.
 
 ## What works today
 
-- Responsive React market, portfolio, and simulation interface
+- Arc Testnet wallet connection, chain switching, public state reads, USDC approvals, YES purchases, and liquidity deposits
+- Responsive React market, portfolio, and simulation interface with explicit separation between demo analytics and onchain actions
 - Binary fixed-product Solidity AMM with internal YES/NO positions
 - Immutable per-market LP/protocol fee split with treasury revenue collection
 - LP deposits, withdrawals, fee accounting, slippage limits, and redemptions
@@ -19,6 +24,21 @@
 - LP mark-to-market, realized P&L, fee APR/APY, and capital-at-risk metrics
 - FastAPI endpoints for demo markets, trade quotes, and LP stress tests
 - Docker Compose, CI, verification scripts, and GitHub Pages deployment
+
+## Arc MVP evidence
+
+The public deployment uses Arc Testnet chain ID `5042002` and the official 6-decimal USDC ERC-20 interface at `0x3600000000000000000000000000000000000000`. The seeded market asks whether the Arc Programmable Money Hackathon will reach Demo Day on August 20, 2026.
+
+| Artifact | Public evidence |
+|---|---|
+| Factory | [`0x9d86…9601`](https://testnet.arcscan.app/address/0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601) |
+| Market | [`0x6C61…FA42`](https://testnet.arcscan.app/address/0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42) |
+| Factory deployment | [Arcscan transaction](https://testnet.arcscan.app/tx/0x27501f61c889a4f98e21208834457e9fdd4c7bf1483a100f6f8296cb2843a84c) |
+| Market initialization | [Arcscan transaction](https://testnet.arcscan.app/tx/0x9cd2f1072da7a5c75b529c9718118352713dbe85278aaf5e5cf8ffce6218e3d2) |
+| Canonical YES trade | [Arcscan transaction](https://testnet.arcscan.app/tx/0x72c9c287ff2bea33379f5c2d068da23b25eff9aeb49c372bafc011104bcc35be) |
+| Canonical liquidity deposit | [Arcscan transaction](https://testnet.arcscan.app/tx/0x6a0eb79e63afd3556a8a3079242e479938319b1a2f186d569132131d592e2c7d) |
+
+The committed deployment manifest is [`contracts/deployments/arc-testnet.json`](contracts/deployments/arc-testnet.json). See [`docs/ARC_INTEGRATION.md`](docs/ARC_INTEGRATION.md) for the exact deployment and verification flow.
 
 ## Product thesis
 
@@ -80,7 +100,7 @@ npm --prefix contracts test
 npm --prefix contracts run compile
 ```
 
-Deployment helpers require explicit environment variables and are testnet-only. They do not contain private keys or automatically seed a market. See [contracts/README.md](contracts/README.md).
+Arc deployment helpers use a dedicated ignored testnet key, deploy and seed one market, exercise a YES trade and liquidity deposit, and verify onchain invariants. See [contracts/README.md](contracts/README.md).
 
 ## Verify everything
 
@@ -118,6 +138,10 @@ The suite currently covers Python economics/API behavior, frontend logic and pro
 - [API](docs/API.md)
 - [Operations runbook](docs/RUNBOOK.md)
 - [Roadmap](docs/ROADMAP.md)
+- [Arc integration and deployment evidence](docs/ARC_INTEGRATION.md)
+- [Hackathon submission copy](docs/HACKATHON_SUBMISSION.md)
+- [Three-minute demo script](submission/DEMO_SCRIPT.md)
+- [Release checklist](submission/RELEASE_CHECKLIST.md)
 
 ## Production boundary
 
