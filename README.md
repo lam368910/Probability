@@ -43,11 +43,33 @@ Additional risks include smart-contract vulnerabilities, oracle failures, collat
 
 - [Protocol overview](docs/PROTOCOL_OVERVIEW.md)
 
+## Prototype
+
+The repository includes a dependency-free Python prototype of a binary LMSR
+automated market maker. It demonstrates probability pricing, trade quotes,
+price impact, fee collection, and market state tracking. It is educational code,
+not production-ready smart-contract logic.
+
+```bash
+python -m pip install -e .
+python examples/demo.py
+python -m unittest discover -s tests -v
+```
+
+```python
+from probability import BinaryLMSR
+
+market = BinaryLMSR(liquidity=100, fee_bps=100)
+quote = market.buy("YES", 25)
+print(quote.total_cost)
+print(market.snapshot())
+```
+
 ## Status
 
-The repository currently documents the product thesis and an initial protocol design. Technical specifications, smart contracts, simulations, and audits are future work.
+The repository currently documents the product thesis and includes a small AMM
+prototype. Smart contracts, production simulations, and audits are future work.
 
 ## Contributing
 
 Feedback on AMM design, liquidity-provider risk, oracle mechanisms, market resolution, and regulatory considerations is welcome through GitHub issues.
-
