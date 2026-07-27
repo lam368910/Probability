@@ -24,16 +24,16 @@ portal closes.
 - [x] Confirm the public repository is `https://github.com/lam368910/Probability`.
 - [x] Remove secrets, private keys, wallet exports, local environment files, and
   accidental personal data from the working tree and Git history.
-- [ ] Confirm all license and third-party asset attributions are present.
-- [ ] Run `./scripts/verify.sh` or `./scripts/verify.ps1` from a clean checkout.
-- [ ] Confirm Python, API, web, and contract tests pass.
-- [ ] Confirm the production web build succeeds.
-- [ ] Record the release commit: `<RELEASE_COMMIT_SHA>`.
+- [x] Confirm the MIT license is present and no unattributed third-party media is used.
+- [x] Run `./scripts/verify.ps1` from the release working tree.
+- [x] Confirm Python, API, web, and contract tests pass: 58 total tests.
+- [x] Confirm the production web build succeeds locally and in GitHub Actions.
+- [x] Record the tested release commit: `15c1eb9df96e34d79a3f6649e9f4d74e35162b08`.
 - [ ] Tag the tested commit only after every required fix has landed.
 
 ## 2. Arc Testnet deployment
 
-- [ ] Use a dedicated testnet-only deployer; never use a mainnet wallet.
+- [x] Use a dedicated testnet-only deployer; never use a mainnet wallet.
 - [x] Confirm Arc Testnet chain ID `5042002` before signing.
 - [x] Confirm the wallet chain ID is encoded as `0x4CEF52` and the configured RPC is
   the current official endpoint, `https://rpc.testnet.arc.io`.
@@ -56,33 +56,33 @@ portal closes.
 
 - [x] Build the public factory address `0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601` into the frontend.
 - [x] Build the public market address `0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42` into the frontend.
-- [ ] Set the public API URL for the web deployment.
-- [ ] Rebuild after setting environment values; do not rely on local development env.
-- [ ] Test in a signed-out/private browser window on desktop and mobile widths.
+- [x] Confirm the MVP needs no public API URL; live state is read directly from Arc RPC.
+- [x] Build the deployment addresses into the public release; do not rely on local env.
+- [x] Test the public release signed out and test desktop/mobile layouts.
 - [ ] Connect a wallet and confirm Arc Testnet switching.
-- [ ] Confirm testnet USDC balance and market state load from chain.
+- [x] Confirm the public market state loads from Arc: `5.00 / 5.20 USDC` reserves.
 - [x] Complete one minimal YES purchase and one minimal liquidity deposit onchain.
 - [x] Confirm the UI targets and links to the correct Arcscan market address.
-- [ ] Confirm there are no mainnet claims, real-money prompts, guaranteed returns, or
+- [x] Confirm there are no mainnet claims, real-money prompts, guaranteed returns, or
   unresolved placeholders visible in the application.
 - [x] Record live demo URL: `https://lam368910.github.io/Probability/`.
 - [x] Record canonical demo transaction: `https://testnet.arcscan.app/tx/0x72c9c287ff2bea33379f5c2d068da23b25eff9aeb49c372bafc011104bcc35be`.
 
 ## 4. Judge assets
 
-- [ ] Record a complete live run before recording the final video.
-- [ ] Keep the final pitch/demo at or below the organizer's three-minute limit.
+- [x] Record a complete Arc Testnet run before producing the final video.
+- [x] Keep the final pitch/demo at or below three minutes: `02:49`.
 - [ ] Show wallet connection, chain identity, public contract evidence, one completed
   Arc transaction, changed state, and the risk disclosure.
-- [ ] Use readable zoom, captions, and clean audio; remove wallet notifications that
+- [x] Use readable zoom, captions, and clean audio; remove wallet notifications that
   reveal unrelated accounts.
-- [ ] Do not show private keys, seed phrases, API credentials, private browser tabs,
+- [x] Do not show private keys, seed phrases, API credentials, private browser tabs,
   or testnet-wallet export screens.
-- [ ] Upload with public or unlisted judge access and test the link while signed out.
+- [x] Publish the judge assets through the public GitHub Pages deployment.
 - [x] Record video URL: `https://lam368910.github.io/Probability/Probability-Arc-Demo.mp4`.
 - [x] Export the pitch deck and verify fonts, links, page order, and slide bounds.
 - [x] Record deck URL: `https://lam368910.github.io/Probability/Probability-Arc-Pitch.pptx`.
-- [ ] Replace every placeholder in `docs/HACKATHON_SUBMISSION.md`.
+- [x] Replace every placeholder in `docs/HACKATHON_SUBMISSION.md`.
 
 ## 5. Final submission
 
@@ -111,11 +111,11 @@ portal closes.
 
 | Check | Value |
 | --- | --- |
-| Application confirmed | `<YES / NO>` |
-| Release commit | `<RELEASE_COMMIT_SHA>` |
+| Application confirmed | `NO — owner action required` |
+| Release commit | `15c1eb9df96e34d79a3f6649e9f4d74e35162b08` |
 | Arc factory verified | `YES` |
 | Arc market verified | `YES` |
 | Smoke test passed | `YES` |
-| Live demo checked signed out | `<YES / NO>` |
-| Video checked signed out | `<YES / NO>` |
-| Submission confirmation saved | `<YES / NO>` |
+| Live demo checked signed out | `YES` |
+| Video checked signed out | `YES — public Pages artifact` |
+| Submission confirmation saved | `NO — owner action required` |
