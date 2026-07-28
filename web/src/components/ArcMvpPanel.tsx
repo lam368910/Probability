@@ -7,26 +7,50 @@ const compactAddress = (address: string) => address ? `${address.slice(0, 6)}…
 export function ArcMvpPanel({ wallet }: { wallet: ArcWallet }) {
   const deploymentLabel = !wallet.deploymentConfigured
     ? 'Deployment staging'
-    : wallet.deploymentReady ? 'Contracts live' : 'Contract unavailable'
+    : wallet.deploymentReady ? 'Ready on testnet' : 'Contract unavailable'
+
   return (
     <section className="arc-panel" aria-label="Arc Testnet deployment status">
-      <div>
-        <span className={`arc-live-dot ${wallet.deploymentReady ? '' : 'arc-live-dot-muted'}`} />
-        <p>ARC TESTNET MVP</p>
-        <strong>{deploymentLabel}</strong>
-      </div>
-      <dl>
-        <div><dt>NETWORK</dt><dd>Arc · {ARC_TESTNET.chainId}</dd></div>
-        <div><dt>WALLET</dt><dd>{compactAddress(wallet.account)}</dd></div>
-        <div><dt>USDC BALANCE</dt><dd>{wallet.balance}</dd></div>
-        <div><dt>POOL RESERVES</dt><dd>{wallet.reserves}</dd></div>
+      <header className="arc-panel-head">
+        <div className="arc-panel-title">
+          <span><i className={`arc-live-dot ${wallet.deploymentReady ? '' : 'arc-live-dot-muted'}`} /> ARC TESTNET MVP</span>
+          <h2>Onchain system status</h2>
+          <p>This panel shows which network, wallet and AMM pool the action buttons actually use.</p>
+        </div>
+        <strong className={`arc-status-chip ${wallet.deploymentReady ? 'is-ready' : ''}`}>{deploymentLabel}</strong>
+      </header>
+
+      <dl className="arc-metrics">
+        <div>
+          <dt>BLOCKCHAIN</dt>
+          <dd>Arc Testnet</dd>
+          <small>Chain ID {ARC_TESTNET.chainId}</small>
+        </div>
+        <div>
+          <dt>CONNECTED WALLET</dt>
+          <dd>{compactAddress(wallet.account)}</dd>
+          <small>{wallet.account ? 'Your active EVM account' : 'Connect from the button above'}</small>
+        </div>
+        <div>
+          <dt>YOUR TEST USDC</dt>
+          <dd>{wallet.balance}</dd>
+          <small>Wallet balance available for test actions</small>
+        </div>
+        <div>
+          <dt>AMM POOL RESERVES</dt>
+          <dd>{wallet.reserves}</dd>
+          <small>YES reserve / NO reserve inside the contract</small>
+        </div>
       </dl>
-      <p className="arc-message">{wallet.message}</p>
-      <div className="arc-links">
-        <button type="button" onClick={() => void wallet.refresh()} disabled={wallet.status === 'pending' || wallet.status === 'connecting'}>Refresh state</button>
-        {wallet.deploymentConfigured ? <a href={`${ARC_TESTNET.explorerUrl}/address/${ARC_DEPLOYMENT.market}`} target="_blank" rel="noreferrer">Configured market <Icon name="arrow" /></a> : null}
-        {wallet.txHash ? <a href={`${ARC_TESTNET.explorerUrl}/tx/${wallet.txHash}`} target="_blank" rel="noreferrer">Latest transaction <Icon name="arrow" /></a> : null}
-      </div>
+
+      <footer className="arc-panel-foot">
+        <p><b>CURRENT STATE</b><span>{wallet.message}</span></p>
+        <div className="arc-links">
+          <button type="button" onClick={() => void wallet.refresh()} disabled={wallet.status === 'pending' || wallet.status === 'connecting'}>Refresh onchain data</button>
+          {wallet.deploymentConfigured ? <a href={`${ARC_TESTNET.explorerUrl}/address/${ARC_DEPLOYMENT.market}`} target="_blank" rel="noreferrer">Open market contract <Icon name="arrow" /></a> : null}
+          {wallet.txHash ? <a href={`${ARC_TESTNET.explorerUrl}/tx/${wallet.txHash}`} target="_blank" rel="noreferrer">View latest transaction <Icon name="arrow" /></a> : null}
+        </div>
+      </footer>
     </section>
   )
 }
