@@ -34,6 +34,12 @@ export default function App() {
     return () => { active = false }
   }, [])
 
+  useEffect(() => {
+    if (!data || !window.location.hash) return
+    const target = document.querySelector(window.location.hash)
+    target?.scrollIntoView()
+  }, [data])
+
   if (!data || !selected) return <main className="loading-screen"><div className="brand-mark"><i /><i /><i /><i /></div><span>Calibrating markets</span></main>
 
   return (
