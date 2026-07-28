@@ -29,7 +29,7 @@ export function ArcMvpPanel({ wallet }: { wallet: ArcWallet }) {
         <div>
           <dt>CONNECTED WALLET</dt>
           <dd>{compactAddress(wallet.account)}</dd>
-          <small>{wallet.account ? 'Your active EVM account' : 'Connect from the button above'}</small>
+          <small>{wallet.account ? 'Your active EVM account' : 'Connect inside the dApp workspace'}</small>
         </div>
         <div>
           <dt>YOUR TEST USDC</dt>

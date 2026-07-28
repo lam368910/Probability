@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <>
-      <Header wallet={arcWallet} />
+      <Header />
       <main>
         <Hero market={selected} />
         <ArcMvpPanel wallet={arcWallet} />

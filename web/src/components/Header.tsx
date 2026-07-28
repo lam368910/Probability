@@ -1,10 +1,6 @@
 import { Icon } from './Icon'
-import type { ArcWallet } from '../hooks/useArcWallet'
 
-export function Header({ wallet }: { wallet: ArcWallet }) {
-  const walletLabel = wallet.account
-    ? wallet.networkReady ? `${wallet.account.slice(0, 6)}…${wallet.account.slice(-4)}` : 'Switch to Arc'
-    : 'Connect Arc wallet'
+export function Header() {
   return (
     <>
       <div className="testnet-ribbon" role="status">
@@ -20,13 +16,14 @@ export function Header({ wallet }: { wallet: ArcWallet }) {
         <nav aria-label="Primary navigation">
           <a href="#markets">Markets</a>
           <a href="#portfolio">Portfolio</a>
+          <a href="#simulator">dApp</a>
           <a href="#mechanics">Mechanics</a>
           <a href="#safety">Safety</a>
         </nav>
-        <button className="wallet-button" type="button" onClick={() => void wallet.connect()} disabled={wallet.status === 'connecting' || wallet.status === 'pending'}>
-          <span className={`status-dot ${wallet.networkReady ? '' : 'status-dot-muted'}`} /> {walletLabel}
-          <Icon name="chevron" />
-        </button>
+        <a className="launch-app-button" href="#simulator">
+          <span><small>WORKSPACE</small><strong>Launch dApp</strong></span>
+          <Icon name="arrow" />
+        </a>
       </header>
     </>
   )
