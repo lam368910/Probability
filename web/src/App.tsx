@@ -6,7 +6,7 @@ import { Simulator } from './components/Simulator'
 import { PortfolioView } from './components/PortfolioView'
 import { Mechanics, Safety } from './components/Mechanics'
 import { dataAdapter, demoPortfolioMarkets } from './data/mockAdapter'
-import type { Market, Portfolio, ProtocolStats } from './types/market'
+import type { Market, Portfolio } from './types/market'
 import { Icon } from './components/Icon'
 import { ArcMvpPanel } from './components/ArcMvpPanel'
 import { useArcWallet } from './hooks/useArcWallet'
@@ -14,7 +14,7 @@ import { MarketActivity } from './components/MarketActivity'
 import { useLiveMarkets } from './hooks/useLiveMarkets'
 import { useAmbientMotion } from './hooks/useAmbientMotion'
 
-interface AppData { markets: Market[]; portfolio: Portfolio; stats: ProtocolStats }
+interface AppData { markets: Market[]; portfolio: Portfolio }
 const EMPTY_MARKETS: Market[] = []
 
 export default function App() {
@@ -27,8 +27,8 @@ export default function App() {
 
   useEffect(() => {
     let active = true
-    Promise.all([dataAdapter.getMarkets(), dataAdapter.getPortfolio(), dataAdapter.getProtocolStats()]).then(([markets, portfolio, stats]) => {
-      if (active) { setData({ markets, portfolio, stats }); setSelectedId(markets[0]?.id ?? '') }
+    Promise.all([dataAdapter.getMarkets(), dataAdapter.getPortfolio()]).then(([markets, portfolio]) => {
+      if (active) { setData({ markets, portfolio }); setSelectedId(markets[0]?.id ?? '') }
     })
     return () => { active = false }
   }, [])
@@ -39,7 +39,7 @@ export default function App() {
     <>
       <Header wallet={arcWallet} />
       <main>
-        <Hero stats={data.stats} />
+        <Hero market={selected} />
         <ArcMvpPanel wallet={arcWallet} />
         <MarketActivity markets={liveMarkets} />
         <div className="ticker" aria-label="Protocol highlights"><div><span>◈</span> FEE-FUNDED YIELD <i /> <span>◈</span> MARKET-NEUTRAL INTENT <i /> <span>◈</span> TRANSPARENT RISK <i /> <span>◈</span> CAPITAL EFFICIENCY <i /> <span>◈</span> FEE-FUNDED YIELD <i /></div></div>
