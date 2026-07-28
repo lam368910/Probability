@@ -78,10 +78,8 @@ portal closes.
   reveal unrelated accounts.
 - [x] Do not show private keys, seed phrases, API credentials, private browser tabs,
   or testnet-wallet export screens.
-- [x] Publish the judge assets through the public GitHub Pages deployment.
-- [x] Record video URL: `https://lam368910.github.io/Probability/Probability-Arc-Demo.mp4`.
-- [x] Export the pitch deck and verify fonts, links, page order, and slide bounds.
-- [x] Record deck URL: `https://lam368910.github.io/Probability/Probability-Arc-Pitch.pptx`.
+- [ ] Publish a replacement demo video before final submission.
+- [ ] Publish a replacement pitch deck before final submission.
 - [x] Replace every placeholder in `docs/HACKATHON_SUBMISSION.md`.
 
 ## 5. Final submission
@@ -117,5 +115,5 @@ portal closes.
 | Arc market verified | `YES` |
 | Smoke test passed | `YES` |
 | Live demo checked signed out | `YES` |
-| Video checked signed out | `YES — public Pages artifact` |
+| Video checked signed out | NO — asset removed at owner request |
 | Submission confirmation saved | `NO — owner action required` |

@@ -35,11 +35,8 @@ jobs:
         working-directory: web
       - run: npm run build -- --base=/Probability/
         working-directory: web
-      - name: Add public judge assets
+      - name: Add public deployment manifest
         run: |
-          cp submission/Probability-Arc-Demo.mp4 web/dist/Probability-Arc-Demo.mp4
-          cp submission/Probability-Arc-Pitch.pptx web/dist/Probability-Arc-Pitch.pptx
-          cp submission/Probability-Arc-Pitch-preview.webp web/dist/Probability-Arc-Pitch-preview.webp
           cp contracts/deployments/arc-testnet.json web/dist/arc-testnet.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

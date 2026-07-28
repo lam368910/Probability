@@ -4,8 +4,6 @@
 
 **Public demo:** <https://lam368910.github.io/Probability/>
 
-**Judge assets:** [3-minute demo video](https://lam368910.github.io/Probability/Probability-Arc-Demo.mp4) · [pitch deck](https://lam368910.github.io/Probability/Probability-Arc-Pitch.pptx)
-
 **Arc Testnet:** [factory](https://testnet.arcscan.app/address/0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601) · [market](https://testnet.arcscan.app/address/0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42) · [YES trade](https://testnet.arcscan.app/tx/0x72c9c287ff2bea33379f5c2d068da23b25eff9aeb49c372bafc011104bcc35be) · [liquidity deposit](https://testnet.arcscan.app/tx/0x6a0eb79e63afd3556a8a3079242e479938319b1a2f186d569132131d592e2c7d)
 
 > **Current status: working, unaudited Arc Testnet MVP.** Testnet USDC has no value. No component in this repository promises profit, protects principal, or is approved to custody real funds.

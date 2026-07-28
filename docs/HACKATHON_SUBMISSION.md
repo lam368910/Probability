@@ -90,8 +90,6 @@ and seeds its reserves. Arc network details are documented in
 | --- | --- |
 | Source repository | https://github.com/lam368910/Probability |
 | Live demo | https://lam368910.github.io/Probability/ |
-| Three-minute video | https://lam368910.github.io/Probability/Probability-Arc-Demo.mp4 |
-| Pitch deck | https://lam368910.github.io/Probability/Probability-Arc-Pitch.pptx |
 | Arc factory | https://testnet.arcscan.app/address/0x9d86B15bFb272B7b6702b9B0dDB3EA2a30B29601 |
 | Arc market | https://testnet.arcscan.app/address/0x6C61d4e599EdBD181DD815aFA83B3029b6AFFA42 |
 | YES trade | https://testnet.arcscan.app/tx/0x72c9c287ff2bea33379f5c2d068da23b25eff9aeb49c372bafc011104bcc35be |
