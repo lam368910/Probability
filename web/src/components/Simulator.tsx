@@ -21,6 +21,7 @@ export function Simulator({ market, wallet }: { market: Market; wallet: ArcWalle
   const busy = wallet.status === 'pending' || wallet.status === 'connecting'
   const actionReady = Boolean(parsedAmount) && wallet.deploymentReady && !busy
   const connectedToArc = Boolean(wallet.account) && wallet.networkReady
+  const externalReference = market.source === 'polymarket'
   const actionLabel = !wallet.deploymentReady
     ? 'Arc deployment not configured'
     : busy
@@ -37,7 +38,7 @@ export function Simulator({ market, wallet }: { market: Market; wallet: ArcWalle
         <span className="section-index light">02</span>
         <p className="eyebrow-text">POSITION LAB</p>
         <h2>Model the flow<br />before the funds.</h2>
-        <p>Explore possible outcomes using recent fee activity. This is a deterministic demonstration—not a promise of returns.</p>
+        <p>{externalReference ? 'Use the external market price as a read-only scenario input. Probability yield is unavailable until a matching Arc market is configured.' : 'Explore possible outcomes using recent fee activity. This is a deterministic demonstration—not a promise of returns.'}</p>
         <div className="formula-card">
           <span>LP RETURN MODEL</span>
           <p><b>Trading fees</b> + incentives</p><i>−</i>
@@ -49,7 +50,7 @@ export function Simulator({ market, wallet }: { market: Market; wallet: ArcWalle
           <button role="tab" aria-selected={mode === 'liquidity'} className={mode === 'liquidity' ? 'active' : ''} onClick={() => setMode('liquidity')} type="button"><Icon name="droplet" /> Provide liquidity</button>
           <button role="tab" aria-selected={mode === 'trade'} className={mode === 'trade' ? 'active' : ''} onClick={() => setMode('trade')} type="button"><Icon name="spark" /> Trade outcome</button>
         </div>
-        <div className="selected-market"><span>SELECTED MARKET</span><strong>{market.question}</strong><small>{market.probability}¢ YES · {market.feeApr === null ? 'fee APR unavailable' : `${market.feeApr}% est. fee APR`}</small></div>
+        <div className="selected-market"><span>{externalReference ? 'EXTERNAL REFERENCE MARKET' : 'SELECTED MARKET'}</span><strong>{market.question}</strong><small>{market.probability}¢ YES · {externalReference ? 'read-only 7D source data' : market.feeApr === null ? 'fee APR unavailable' : `${market.feeApr}% est. fee APR`}</small></div>
         <label className="amount-input">
           <span>{mode === 'liquidity' ? 'AMOUNT TO SUPPLY' : 'AMOUNT TO TRADE'}</span>
           <div><b>$</b><input value={amount} inputMode="decimal" autoComplete="off" aria-label="USDC amount" aria-invalid={amount.length > 0 && !parsedAmount} onChange={(event) => setAmount(event.target.value)} /><em>USDC</em></div>
@@ -74,7 +75,7 @@ export function Simulator({ market, wallet }: { market: Market; wallet: ArcWalle
         <div className="onchain-target" role="note">
           <span>ONCHAIN ACTION TARGET</span>
           <strong>{wallet.deploymentReady ? wallet.marketQuestion : 'No Arc market address configured'}</strong>
-          <small>The market cards and estimates above are demo analytics. The button below only acts on this named Arc Testnet contract.</small>
+          <small>{externalReference ? 'The selected discovery market is a read-only external reference. This button only acts on the named Arc Testnet contract and never places a Polymarket trade.' : 'The market cards and estimates above are demo analytics. The button below only acts on this named Arc Testnet contract.'}</small>
         </div>
         <button
           className="demo-submit"

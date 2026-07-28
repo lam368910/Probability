@@ -35,4 +35,9 @@ describe('projectLiveMarkets', () => {
     expect(projected).not.toBe(market)
     expect(projected.sparkline).toEqual([...market.sparkline.slice(1), projected.probability])
   })
+
+  it('does not synthesize movement for externally sourced markets', () => {
+    const liveMarket = { ...market, source: 'polymarket' as const }
+    expect(projectLiveMarkets([liveMarket], 18)[0]).toBe(liveMarket)
+  })
 })

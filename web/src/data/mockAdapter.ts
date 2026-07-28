@@ -1,4 +1,5 @@
 import type { Market, Portfolio, ProbabilityDataAdapter, ProtocolStats } from '../types/market'
+import { fetchPolymarketMarkets } from './polymarketAdapter'
 
 const markets: Market[] = [
   {
@@ -22,6 +23,8 @@ const markets: Market[] = [
     sparkline: [53, 54, 52, 55, 56, 56, 54, 55, 57, 56, 58, 57],
   },
 ]
+
+export const demoPortfolioMarkets = markets
 
 const wait = <T,>(value: T): Promise<T> => Promise.resolve(structuredClone(value))
 
@@ -51,6 +54,7 @@ const categories: Record<string, Market['category']> = {
   politics: 'Politics',
   technology: 'Technology',
   climate: 'Climate',
+  sports: 'Sports',
 }
 
 function formatApiDate(value: string | undefined, fallback: string): string {
@@ -81,6 +85,11 @@ export function normalizeMarket(item: ApiMarket, index: number): Market {
     closesAt: item.closesAt ?? formatApiDate(item.closes_at, fallback.closesAt),
     sparkline: item.sparkline ?? Array.from({ length: 12 }, (_, point) => Math.max(1, Math.min(99, probability + Math.round(Math.sin(point * 0.9) * 3)))),
     featured: item.featured ?? index === 0,
+    source: item.source ?? 'demo',
+    sourceLabel: item.sourceLabel,
+    sourceUrl: item.sourceUrl,
+    updatedAt: item.updatedAt,
+    priceWindow: item.priceWindow,
   }
 }
 
@@ -103,5 +112,17 @@ const apiAdapter: ProbabilityDataAdapter = {
   getProtocolStats: () => mockAdapter.getProtocolStats(),
 }
 
-// Set VITE_API_URL to connect live market reads. Missing or unavailable APIs fall back to safe demo data.
-export const dataAdapter: ProbabilityDataAdapter = apiBase ? apiAdapter : mockAdapter
+const publicMarketAdapter: ProbabilityDataAdapter = {
+  async getMarkets() {
+    try {
+      return await fetchPolymarketMarkets()
+    } catch {
+      return mockAdapter.getMarkets()
+    }
+  },
+  getPortfolio: () => mockAdapter.getPortfolio(),
+  getProtocolStats: () => mockAdapter.getProtocolStats(),
+}
+
+// A custom API wins when configured. Otherwise use public read-only market data with a safe demo fallback.
+export const dataAdapter: ProbabilityDataAdapter = apiBase ? apiAdapter : publicMarketAdapter

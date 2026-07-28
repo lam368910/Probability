@@ -5,7 +5,7 @@ import { Markets } from './components/Markets'
 import { Simulator } from './components/Simulator'
 import { PortfolioView } from './components/PortfolioView'
 import { Mechanics, Safety } from './components/Mechanics'
-import { dataAdapter } from './data/mockAdapter'
+import { dataAdapter, demoPortfolioMarkets } from './data/mockAdapter'
 import type { Market, Portfolio, ProtocolStats } from './types/market'
 import { Icon } from './components/Icon'
 import { ArcMvpPanel } from './components/ArcMvpPanel'
@@ -45,7 +45,7 @@ export default function App() {
         <div className="ticker" aria-label="Protocol highlights"><div><span>◈</span> FEE-FUNDED YIELD <i /> <span>◈</span> MARKET-NEUTRAL INTENT <i /> <span>◈</span> TRANSPARENT RISK <i /> <span>◈</span> CAPITAL EFFICIENCY <i /> <span>◈</span> FEE-FUNDED YIELD <i /></div></div>
         <Markets markets={liveMarkets} selected={selected} onSelect={(market) => setSelectedId(market.id)} />
         <Simulator market={selected} wallet={arcWallet} />
-        <PortfolioView portfolio={data.portfolio} markets={liveMarkets} />
+        <PortfolioView portfolio={data.portfolio} markets={demoPortfolioMarkets} />
         <Mechanics />
         <Safety />
       </main>

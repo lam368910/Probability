@@ -18,10 +18,13 @@ The web application is not trusted for pricing or settlement. Contracts remain t
 ### Web application
 
 - Market discovery and transparent resolution rules
+- Read-only Polymarket Gamma discovery and CLOB seven-day price history with explicit source attribution
 - Trade and liquidity previews
 - Wallet connection and transaction lifecycle
 - LP portfolio and risk scenarios
 - Demo mode for public presentation without a wallet
+
+External discovery data is never treated as Probability settlement data or as proof of an available Arc market. When the public feed is unavailable, the client switches to visibly labeled deterministic demo markets.
 
 ### Analytics service
 
@@ -97,4 +100,3 @@ Verified contracts, test collateral, public monitoring, rate limits, and an expl
 ### Mainnet
 
 Unavailable until independent audits, economic review, oracle integration, legal approval, monitoring, incident response, and governance hardening are complete.
-

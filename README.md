@@ -12,6 +12,7 @@
 
 - Arc Testnet wallet connection, chain switching, public state reads, USDC approvals, YES purchases, and liquidity deposits
 - Responsive React market, portfolio, and simulation interface with explicit separation between demo analytics and onchain actions
+- Live read-only market discovery from Polymarket Gamma with seven-day CLOB price history, source links, and a safe demo fallback
 - Binary fixed-product Solidity AMM with internal YES/NO positions
 - Immutable per-market LP/protocol fee split with treasury revenue collection
 - LP deposits, withdrawals, fee accounting, slippage limits, and redemptions
@@ -88,7 +89,7 @@ npm --prefix web ci
 npm --prefix web run dev
 ```
 
-Set `VITE_API_URL=http://localhost:8000` in `web/.env` to use live API market data. If it is absent or unavailable, the UI intentionally falls back to deterministic demo data.
+Without `VITE_API_URL`, the web app reads active public markets from Polymarket Gamma and seven-day price history from the public CLOB API. The external feed is discovery-only: it does not resolve or execute Probability markets. If it is unavailable or returns too few eligible markets, the UI intentionally falls back to clearly labeled deterministic demo data. Set `VITE_API_URL=http://localhost:8000` in `web/.env` to use the local Probability API instead.
 
 ### Smart contracts
 
@@ -134,6 +135,7 @@ The suite currently covers Python economics/API behavior, frontend logic and pro
 - [Risk model](docs/RISK_MODEL.md)
 - [Security and compliance gates](docs/SECURITY_AND_COMPLIANCE.md)
 - [API](docs/API.md)
+- [Market data sources and fallback](docs/MARKET_DATA.md)
 - [Operations runbook](docs/RUNBOOK.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Arc integration and deployment evidence](docs/ARC_INTEGRATION.md)

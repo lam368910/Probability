@@ -175,6 +175,8 @@ body::after {
   transform: translateY(4px);
   transition: opacity .2s, transform .2s;
 }
+.market-card-live::after { content: 'REAL · 7D'; color: #3f7227; }
+.market-feed-note.is-live span i, .market-card-live .market-source span i { animation: statusPulse 2s ease-out infinite; }
 .market-card:hover::after, .market-card.selected::after { opacity: 1; transform: none; }
 .market-card-button::before {
   content: '';

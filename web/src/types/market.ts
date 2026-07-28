@@ -1,4 +1,6 @@
-export type MarketCategory = 'Macro' | 'Crypto' | 'Politics' | 'Technology' | 'Climate'
+export type MarketCategory = 'Macro' | 'Crypto' | 'Politics' | 'Technology' | 'Climate' | 'Sports'
+
+export type MarketSource = 'demo' | 'polymarket'
 
 export interface Market {
   id: string
@@ -15,6 +17,11 @@ export interface Market {
   closesAt: string
   sparkline: number[]
   featured?: boolean
+  source?: MarketSource
+  sourceLabel?: string
+  sourceUrl?: string
+  updatedAt?: string
+  priceWindow?: string
 }
 
 export interface Portfolio {
