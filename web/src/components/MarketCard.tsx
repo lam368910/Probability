@@ -12,7 +12,7 @@ export function MarketCard({ market, selected, onSelect }: { market: Market; sel
         <h3>{market.question}</h3>
         <div className="probability-row">
           <div><small>YES PRICE</small><strong>{market.probability}<sup>¢</sup></strong><span className={positive ? 'up' : 'down'}>{positive ? '+' : ''}{market.change24h}%</span></div>
-          <Sparkline values={market.sparkline} positive={positive} />
+          <Sparkline key={`${market.id}-${market.sparkline.at(-1)}`} values={market.sparkline} positive={positive} />
         </div>
         <div className="market-pair"><span><i style={{ width: `${market.probability}%` }} /></span><small>{market.probability}% yes · {100 - market.probability}% no</small></div>
         <div className="market-metrics">

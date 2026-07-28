@@ -13,7 +13,7 @@ export function Markets({ markets, selected, onSelect }: { markets: Market[]; se
   return (
     <section className="markets-section" id="markets">
       <div className="section-heading">
-        <div><span className="section-index">01</span><p className="eyebrow-text">SIMULATED OPPORTUNITIES</p><h2>Markets with depth.</h2></div>
+        <div><span className="section-index">01</span><p className="eyebrow-text">SIMULATED LIVE MARKETS</p><h2>Markets with depth.</h2></div>
         <p>Demo yield estimates are illustrative and may not represent achievable returns. Choose a market to model a hypothetical position.</p>
       </div>
       <div className="filter-row" role="group" aria-label="Filter markets by category">

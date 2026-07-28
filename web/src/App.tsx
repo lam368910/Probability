@@ -10,18 +10,25 @@ import type { Market, Portfolio, ProtocolStats } from './types/market'
 import { Icon } from './components/Icon'
 import { ArcMvpPanel } from './components/ArcMvpPanel'
 import { useArcWallet } from './hooks/useArcWallet'
+import { MarketActivity } from './components/MarketActivity'
+import { useLiveMarkets } from './hooks/useLiveMarkets'
+import { useAmbientMotion } from './hooks/useAmbientMotion'
 
 interface AppData { markets: Market[]; portfolio: Portfolio; stats: ProtocolStats }
+const EMPTY_MARKETS: Market[] = []
 
 export default function App() {
   const arcWallet = useArcWallet()
   const [data, setData] = useState<AppData | null>(null)
-  const [selected, setSelected] = useState<Market | null>(null)
+  const [selectedId, setSelectedId] = useState('')
+  const liveMarkets = useLiveMarkets(data?.markets ?? EMPTY_MARKETS)
+  const selected = liveMarkets.find((market) => market.id === selectedId) ?? liveMarkets[0] ?? null
+  useAmbientMotion(Boolean(data))
 
   useEffect(() => {
     let active = true
     Promise.all([dataAdapter.getMarkets(), dataAdapter.getPortfolio(), dataAdapter.getProtocolStats()]).then(([markets, portfolio, stats]) => {
-      if (active) { setData({ markets, portfolio, stats }); setSelected(markets[0]) }
+      if (active) { setData({ markets, portfolio, stats }); setSelectedId(markets[0]?.id ?? '') }
     })
     return () => { active = false }
   }, [])
@@ -34,10 +41,11 @@ export default function App() {
       <main>
         <Hero stats={data.stats} />
         <ArcMvpPanel wallet={arcWallet} />
+        <MarketActivity markets={liveMarkets} />
         <div className="ticker" aria-label="Protocol highlights"><div><span>◈</span> FEE-FUNDED YIELD <i /> <span>◈</span> MARKET-NEUTRAL INTENT <i /> <span>◈</span> TRANSPARENT RISK <i /> <span>◈</span> CAPITAL EFFICIENCY <i /> <span>◈</span> FEE-FUNDED YIELD <i /></div></div>
-        <Markets markets={data.markets} selected={selected} onSelect={setSelected} />
+        <Markets markets={liveMarkets} selected={selected} onSelect={(market) => setSelectedId(market.id)} />
         <Simulator market={selected} wallet={arcWallet} />
-        <PortfolioView portfolio={data.portfolio} markets={data.markets} />
+        <PortfolioView portfolio={data.portfolio} markets={liveMarkets} />
         <Mechanics />
         <Safety />
       </main>

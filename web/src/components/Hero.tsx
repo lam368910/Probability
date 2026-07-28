@@ -4,7 +4,7 @@ import { Icon } from './Icon'
 
 export function Hero({ stats }: { stats: ProtocolStats }) {
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" data-reveal>
       <div className="hero-copy reveal">
         <div className="eyebrow"><span>Market-making infrastructure</span><i /></div>
         <h1>Earn on what<br /><em>happens next.</em></h1>
@@ -18,10 +18,10 @@ export function Hero({ stats }: { stats: ProtocolStats }) {
       <div className="hero-instrument reveal reveal-delay">
         <div className="instrument-head">
           <div><span>PROBABILITY INDEX</span><strong>PRB–24</strong></div>
-          <div className="live-chip"><i /> DEMO DATA</div>
+          <div className="live-chip"><i /> SIMULATED LIVE</div>
         </div>
         <div className="dial-wrap">
-          <div className="dial-rings"><i /><i /><i /></div>
+          <div className="dial-rings"><i /><i /><i /></div><div className="flow-lines" aria-hidden="true"><i /><i /><i /><i /><i /></div>
           <div className="dial-value"><small>SIMULATED TVL</small><strong>{formatCompactUsd(stats.tvl)}</strong><span>across {stats.activeMarkets} demo markets</span></div>
           <div className="dial-marker marker-one">FEE FLOW</div>
           <div className="dial-marker marker-two">DEPTH</div>
