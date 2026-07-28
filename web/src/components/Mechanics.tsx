@@ -20,7 +20,7 @@ export function Safety() {
     <section className="safety" id="safety">
       <div><Icon name="shield" /><span>SAFETY NOTE · READ BEFORE USING</span></div>
       <h2>This is a public interface prototype.<br />Not a live financial product.</h2>
-      <div className="safety-grid"><p><strong>Unaudited software</strong>The protocol and interface have not undergone an independent security audit.</p><p><strong>Demo versus onchain</strong>Market cards, portfolio balances, and return estimates are simulated. Only actions explicitly naming the Arc contract can submit testnet transactions; testnet assets have no value.</p><p><strong>LP capital is at risk</strong>Fees may not offset loss from probability movement, informed flow, oracle failure, or smart-contract exploits.</p></div>
+      <div className="safety-grid"><p><strong>Unaudited software</strong>The protocol and interface have not undergone an independent security audit.</p><p><strong>Live data versus demo state</strong>Market discovery prices and charts are live external read-only data. Portfolio balances and return estimates remain illustrative. Only actions explicitly naming the Arc contract can submit testnet transactions.</p><p><strong>LP capital is at risk</strong>Fees may not offset loss from probability movement, informed flow, oracle failure, or smart-contract exploits. Testnet assets have no value.</p></div>
     </section>
   )
 }

@@ -17,6 +17,7 @@ export function Header() {
           <a href="#markets">Markets</a>
           <a href="#portfolio">Portfolio</a>
           <a href="#simulator">dApp</a>
+          <a href="#docs">Docs</a>
           <a href="#mechanics">Mechanics</a>
           <a href="#safety">Safety</a>
         </nav>

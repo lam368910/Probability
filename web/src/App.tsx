@@ -13,6 +13,7 @@ import { useArcWallet } from './hooks/useArcWallet'
 import { MarketActivity } from './components/MarketActivity'
 import { useLiveMarkets } from './hooks/useLiveMarkets'
 import { useAmbientMotion } from './hooks/useAmbientMotion'
+import { Documentation } from './components/Documentation'
 
 interface AppData { markets: Market[]; portfolio: Portfolio }
 const EMPTY_MARKETS: Market[] = []
@@ -46,10 +47,11 @@ export default function App() {
         <Markets markets={liveMarkets} selected={selected} onSelect={(market) => setSelectedId(market.id)} />
         <Simulator market={selected} wallet={arcWallet} />
         <PortfolioView portfolio={data.portfolio} markets={demoPortfolioMarkets} />
+        <Documentation />
         <Mechanics />
         <Safety />
       </main>
-      <footer><a className="brand" href="#top"><span className="brand-mark"><i /><i /><i /><i /></span><span>Probability</span></a><p>Infrastructure for markets about the future.</p><div><a href="#markets">Markets</a><a href="#safety">Risk disclosure</a><a href="https://github.com/lam368910/Probability" target="_blank" rel="noreferrer">GitHub <Icon name="arrow" /></a></div><small>© 2026 Probability Labs · Testnet demonstration</small></footer>
+      <footer><a className="brand" href="#top"><span className="brand-mark"><i /><i /><i /><i /></span><span>Probability</span></a><p>Infrastructure for markets about the future.</p><div><a href="#markets">Markets</a><a href="#docs">Docs</a><a href="#safety">Risk disclosure</a><a href="https://github.com/lam368910/Probability" target="_blank" rel="noreferrer">GitHub <Icon name="arrow" /></a></div><small>© 2026 Probability Labs · Testnet demonstration</small></footer>
     </>
   )
 }
